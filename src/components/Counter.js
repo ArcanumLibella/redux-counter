@@ -3,8 +3,13 @@ import {useSelector, useDispatch} from 'react-redux'
 
 export default function Counter() {
 
-    // Connexion du composant au store :
-    const counter = useSelector(state => state.counter)
+    // Connexion du composant au store (si un seul state):
+    // const counter = useSelector(state => state.counter)
+    // Si plusieurs states :
+    const {counter, name} = useSelector(state => ({
+        ...state.counterReducer,
+        ...state.nameReducer
+    }))
 
     // Pour permettre d'envoyer des actions au reducer
     const dispatch = useDispatch()
@@ -50,6 +55,7 @@ export default function Counter() {
                     Reset
                 </button>
             </div>
+            <h3 className="text-2xl text-center font-black">{name}</h3>
         </div>
     )
 }
